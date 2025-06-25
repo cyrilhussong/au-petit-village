@@ -1,6 +1,6 @@
-<section class="produit">
-  <h1>Produit Vedette</h1>
-  <img src="assets/produit.jpg" alt="Produit">
-  <p>Description détaillée du produit : C’est un produit incroyable avec de nombreuses fonctionnalités.</p>
-  <p class="prix">Prix : <strong>49,99 €</strong></p>
-</section>
+<div *ngIf="product">
+  <h2>{{ product.name }}</h2>
+  <img [src]="product.image" alt="{{ product.name }}" />
+  <p>{{ product.description }}</p>
+  <p><strong>Prix: </strong>{{ product.price | currency:'EUR' }}</p>
+</div>

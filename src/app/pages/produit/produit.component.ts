@@ -1,12 +1,23 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Produit } from '../models/produit.model';
 
-@Component({
-  selector: 'app-product-page',
-  template: `
-    <h2>Détails du produit</h2>
-    <img src="https://via.placeholder.com/150" alt="Produit">
-    <p>Prix : 99.99€</p>
-    <p>Description détaillée du produit...</p>
-  `
+@Injectable({
+  providedIn: 'root'
 })
-export class ProductPageComponent { }
+export class ProduitService {
+  private apiUrl = 'ton_api_url_ici';
+
+  constructor(private http: HttpClient) {}
+
+  getProduits(): Observable<Produit[]> {
+    return this.http.get<Produit[]>(this.apiUrl).pipe(
+      map((produits: Produit[]) => {
+        // traitement exemple : trier par nom
+        return produits.sort((a, b) => a.nom.localeCompare(b.nom));
+      })
+    );
+  }
+}
